@@ -1,4 +1,4 @@
-package com.yyl;
+package com.yyl.producer;
 
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class SyncProducer {
     public static void main( String[] args ) throws MQClientException, UnsupportedEncodingException, MQBrokerException, RemotingException, InterruptedException {
-        // 实例化生产者
+        // 实例化生产者。 producerGroup在生产者组中必须是唯一的，对于非事务性消息，每个进程中唯一即可。
         DefaultMQProducer defaultProducer = new DefaultMQProducer("unique_producer_group_name");
         // 设置nameServer地址，默认获取环境变量
         defaultProducer.setNamesrvAddr("www.youngeryang.top:9876");
