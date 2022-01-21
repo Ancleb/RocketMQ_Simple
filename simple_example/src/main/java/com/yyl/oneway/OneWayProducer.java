@@ -1,4 +1,4 @@
-package com.yyl.producer;
+package com.yyl.oneway;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -26,7 +26,7 @@ public class OneWayProducer {
         // 发送消息
         // 创建消息，并指定Topic，Tag和消息体。  keys：默认为空字符串，flag：是否单向RPC，waitStoreMsgOK：等待消息存储成功
         Message message = new Message("TopicTest", "TAG_A", null);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             message.setBody(("Hello RocketMQ " + (i + 1)).getBytes(StandardCharsets.UTF_8));
 
             // 发送单向消息，没有任何返回结果

@@ -1,4 +1,4 @@
-package com.yyl.producer;
+package com.yyl.sync;
 
 import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
@@ -25,7 +25,9 @@ public class SyncProducer {
 
         for (int i = 0; i < 10; i++) {
             // 创建消息，并指定Topic，Tag和消息体。  keys：默认为空字符串，flag：是否单向RPC，waitStoreMsgOK：等待消息存储成功
-            Message message = new Message("TopicTest", "TAG_A", "", 0, "Hello RocketMQ".getBytes(StandardCharsets.UTF_8), true);
+            Message message = new Message("TopicTest", "TAG_A", "", 0, ("Hello RocketMQ" + (i + 1)).getBytes(StandardCharsets.UTF_8), true);
+            // 设置延时等级。 1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h。 Broker内部每一个等级都有一个队列，这些队列属于SCHEDULE_TOPIC_XXXX的TOPIC中。延迟时间到达后broker才将消息投递到真实的topic中。
+            message.setDelayTimeLevel(3);
             // 发送消息到一个Broker
             SendResult sendResult = defaultProducer.send(message, 50000);
             // 查看返回结果

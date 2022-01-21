@@ -1,6 +1,5 @@
-package com.yyl.producer;
+package com.yyl.async;
 
-import org.apache.rocketmq.client.exception.MQBrokerException;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendCallback;
@@ -31,7 +30,7 @@ public class AsyncProducer {
         // 异步发送模式下，消息发送失败时内部重试次数。 由于幂等性原因(broker返回ack时,出现问题导致client接收或处理失败)可能会造成重复发送。
         producer.setRetryTimesWhenSendAsyncFailed(0);
 
-        int messageCount = 100;
+        int messageCount = 10;
         // 根据消息数量实例化减数器
         CountDownLatch countDownLatch = new CountDownLatch(messageCount);
 

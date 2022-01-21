@@ -28,3 +28,46 @@ broker启动后，会使用这个IP把broker注册到namesrv中的路由信息�
 - vip通道端口:10909
 10909是VIP通道对应的端口，在JAVA中的消费者对象或者是生产者对象中关闭VIP通道即可无需开放10909端口
 
+
+### doesn't support filter by SQL92
+默认broker在被消费消息时不支持使用sql模式过滤消息<br>
+broker配置文件添加`enablePropertyFilter=true`。<br>
+每次过滤都去执行SQL表达式会影响效率，SQL92的表达式上下文为消息的属性。<br>
+
+
+# 一次性发布大小限制
+默认情况下每次最大只能发布4M，这一点可以在源码中查看到。
+`org.apache.rocketmq.client.Validators.checkMessage()`
+
+# 延迟队列
+使用`msg.setDelayTimeLevel()`设置消息的延迟等级即可。
+设置延时等级对应的延迟时间。 [1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h\]。 
+Broker内部每一个等级都对应一个队列（某一个队列中只存储相同延迟等级的消息），这些队列属于SCHEDULE_TOPIC_XXXX的TOPIC。延迟时间到达后broker才将消息投递到真实的topic中。
+
+
+# 消费起点
+使用`consumer.setConsumeFromWhere()`方法可以设置consumer从queue的哪个位置上开始消费。<br>
+- CONSUME_FROM_FIRST_OFFSET：consumer从最早可用的消息开始消费。
+- CONSUME_FROM_LAST_OFFSET：从上次停止的位置开始消费。如果是新启动的consumer，则看consumerGroup最早的消息还没有过期的话，就从头开始消费，如果最早的消息已经过期则从最新消息开始消费，之前的消息全部丢弃。 （消息是经过topic和tag确定后的消息）
+- CONSUME_FROM_TIMESTAMP：从指定时间戳开始消费。
+
+
+# 批量消息
+适用于一批小消息，这些小消息应该具有一些共同的特征：
+1. 相同的topic
+2. 相同的waitStoreOK
+
+因为默认一次投递的消息大小不能超过4M,所以在不确定一批消息的大小时，需要对这一批消息进行分割。<br>
+虽然发布消息的时候是一次性发布，但是consumer在消费消息时还是会调起多个线程对不同消息进行消费。而不是一个线程一次性批量接收。
+
+
+
+# 顺序消息
+RocketMQ的Features中将顺序消息分为`全局顺序`和`分区顺序`。<br>
+
+顺序消费的原理：
+    默认情况下，消息发送时会使用轮序的方式把消息发送到不同的queue（分区队列）；而消费消息时从多个queue中拉取消息，这种情况发送和消费时不能保证顺序的。
+    控制发送的顺序消息依次只发送到同一个queue中，消费的时候只从这个queue上依次拉取，就保证了消费顺序。
+    当发送和消费参与的queue只有一个时，则是全局有序；如果多个queue参与，则为分区有序。
+
+用订单进行分区有序的示例。一个订单的顺序流程是：创建、付款、推送、完成。订单号相同的消息会被先后发送到同一个队列中，消费时，同一个OrderId获取到的肯定是同一个队列。

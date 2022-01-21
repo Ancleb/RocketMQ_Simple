@@ -1,4 +1,4 @@
-package com.yyl.comsumer;
+package com.yyl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
@@ -9,6 +9,7 @@ import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.message.MessageQueue;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -27,15 +28,20 @@ public class Consumer {
         consumer.setNamesrvAddr("www.youngeryang.top:9876");
 
         // 订阅一个或者多个Topic，以及Tag来过滤需要消费的消息
+        // consumer.subscribe("TopicTest", "TAG_A");
         consumer.subscribe("TopicTest", "*");
 
         // 注册回调。 consumer从broker中拉取消息后，启动一个线程去处理消息后，再次去broker拉取消息。
         consumer.registerMessageListener((MessageListenerConcurrently) (msgs, context) -> {
-            System.out.println(JSONObject.toJSONString(context));
-            System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
-            System.out.println();
+            // System.out.println(JSONObject.toJSONString(context));
+            // System.out.printf("%s Receive New Messages: %s %n", Thread.currentThread().getName(), msgs);
+            // System.out.println();
+            System.out.println("您有新的消息，请注意查收");
+            msgs.forEach(msg -> {
+                System.out.printf("%s\tReceive New Messages: %s\t%s\t%s\t%s\t%s\n", Thread.currentThread().getName(), new String(msg.getBody()), msg.getTopic(), msg.getQueueId(), msg.getMsgId(), msg.getProperties());
+            });
             // 标记该消息已经被成功消费
-            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+            return ((int)(Math.random() * 10 + 1)) % 2 == 0 ? ConsumeConcurrentlyStatus.CONSUME_SUCCESS : ConsumeConcurrentlyStatus.RECONSUME_LATER;
         });
 
         consumer.start();
@@ -43,7 +49,5 @@ public class Consumer {
         Set<MessageQueue> topicTest = consumer.fetchSubscribeMessageQueues("TopicTest");
         System.out.println(topicTest);
         System.out.println("Consumer Started");
-
-
     }
 }
