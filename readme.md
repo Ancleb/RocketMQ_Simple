@@ -22,6 +22,10 @@ broker启动后，会使用这个IP把broker注册到namesrv中的路由信息�
 在config/broker.conf文件中添加`brokerIP1 = broker的ip地址`（client端将使用这个ip进行连接broker）。
 
 
+### 启动不起来
+RocketMQ默认的JVM参数配置的内存非常大，默认8G的堆内存。需要修改。<br>
+参考修改：`-Xms256m -Xmx256m -Xmn128m -XX:MetaspaceSize=128m -XX:MaxMetasapceSize=256m`。分别是最小（初始化）堆大小，最大堆大小，新生代大小，元空间大小，最大元空间大小。
+
 ### 开放端口
 - nameSrv:9876
 - 非vip通道端口:10911
@@ -39,9 +43,9 @@ broker配置文件添加`enablePropertyFilter=true`。<br>
 默认情况下每次最大只能发布4M，这一点可以在源码中查看到。
 `org.apache.rocketmq.client.Validators.checkMessage()`
 
-# 延迟队列
+# 延迟消息
 使用`msg.setDelayTimeLevel()`设置消息的延迟等级即可。
-设置延时等级对应的延迟时间。 [1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h\]。 
+限制：默认只有延时等级broker默认只支持18种，分别对应不同的延迟时间。 [1s 5s 10s 30s 1m 2m 3m 4m 5m 6m 7m 8m 9m 10m 20m 30m 1h 2h\]。 
 Broker内部每一个等级都对应一个队列（某一个队列中只存储相同延迟等级的消息），这些队列属于SCHEDULE_TOPIC_XXXX的TOPIC。延迟时间到达后broker才将消息投递到真实的topic中。
 
 
