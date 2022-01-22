@@ -38,16 +38,17 @@ public class Consumer {
             // System.out.println();
             System.out.println("您有新的消息，请注意查收");
             msgs.forEach(msg -> {
-                System.out.printf("%s\tReceive New Messages: %s\t%s\t%s\t%s\t%s\n", Thread.currentThread().getName(), new String(msg.getBody()), msg.getTopic(), msg.getQueueId(), msg.getMsgId(), msg.getProperties());
+                System.out.printf("%s\tReceive New Messages: %s\t%s\t%s\t%s\t%s\t%s\n", Thread.currentThread().getName(), new String(msg.getBody()), msg.getTopic(), msg.getQueueId(), msg.getMsgId(), msg.getReconsumeTimes(), msg.getProperties());
             });
             // 标记该消息已经被成功消费
-            return ((int)(Math.random() * 10 + 1)) % 2 == 0 ? ConsumeConcurrentlyStatus.CONSUME_SUCCESS : ConsumeConcurrentlyStatus.RECONSUME_LATER;
+            // return ((int)(Math.random() * 10 + 1)) % 2 == 0 ? ConsumeConcurrentlyStatus.CONSUME_SUCCESS : ConsumeConcurrentlyStatus.RECONSUME_LATER;
+            return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
         });
 
         consumer.start();
 
-        Set<MessageQueue> topicTest = consumer.fetchSubscribeMessageQueues("TopicTest");
-        System.out.println(topicTest);
+        Set<MessageQueue> messageQueues = consumer.fetchSubscribeMessageQueues("TopicTest");
+        System.out.println("MessageQueue的数量:" + messageQueues.size() + "  " + messageQueues);
         System.out.println("Consumer Started");
     }
 }
