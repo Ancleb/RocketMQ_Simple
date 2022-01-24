@@ -1,0 +1,4 @@
+rocketmq:
+  name-server: www.youngeryang.top:9876
+  consumer:
+    group: SpringBootRocketConsumer
