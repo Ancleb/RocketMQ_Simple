@@ -1,0 +1,12 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: dubbo-consumer
+dubbo:
+  registry:
+    address: zookeeper://www.youngeryang.top:2181;zookeeper://www.youngeryang.top:2182;zookeeper://www.youngeryang.top:2183
+    timeout: 60000
+  application:
+    id: dubbo-consumer
+    name: dubbo-consumer

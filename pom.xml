@@ -12,6 +12,9 @@
         <module>simple_example</module>
         <module>boot_rocketmq_producer</module>
         <module>boot_rocketmq_consumer</module>
+        <module>boot_dubbo_interface</module>
+        <module>boot_dubbo_provider</module>
+        <module>boot_dubbo_consumer</module>
     </modules>
 
     <properties>
