@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyl.goods.mapper.GoodsMapper">
+
+    <resultMap id="BaseResultMap" type="com.yyl.pojo.Goods">
+            <id property="goodsId" column="goods_id" jdbcType="BIGINT"/>
+            <result property="goodsName" column="goods_name" jdbcType="VARCHAR"/>
+            <result property="goodsNumber" column="goods_number" jdbcType="INTEGER"/>
+            <result property="goodsPrice" column="goods_price" jdbcType="DECIMAL"/>
+            <result property="goodsDesc" column="goods_desc" jdbcType="VARCHAR"/>
+            <result property="addTime" column="add_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        goods_id,goods_name,goods_number,
+        goods_price,goods_desc,add_time
+    </sql>
+</mapper>

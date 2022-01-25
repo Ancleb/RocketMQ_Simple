@@ -15,6 +15,7 @@
         <module>boot_dubbo_interface</module>
         <module>boot_dubbo_provider</module>
         <module>boot_dubbo_consumer</module>
+        <module>shop-parent</module>
     </modules>
 
     <properties>

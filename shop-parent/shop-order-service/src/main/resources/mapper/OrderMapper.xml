@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyl.order.mapper.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.yyl.pojo.Order">
+            <id property="orderId" column="order_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="orderStatus" column="order_status" jdbcType="INTEGER"/>
+            <result property="payStatus" column="pay_status" jdbcType="INTEGER"/>
+            <result property="shippingStatus" column="shipping_status" jdbcType="INTEGER"/>
+            <result property="address" column="address" jdbcType="VARCHAR"/>
+            <result property="consignee" column="consignee" jdbcType="VARCHAR"/>
+            <result property="goodsId" column="goods_id" jdbcType="BIGINT"/>
+            <result property="goodsNumber" column="goods_number" jdbcType="INTEGER"/>
+            <result property="goodsPrice" column="goods_price" jdbcType="DECIMAL"/>
+            <result property="goodsAmount" column="goods_amount" jdbcType="DECIMAL"/>
+            <result property="shippingFee" column="shipping_fee" jdbcType="DECIMAL"/>
+            <result property="orderAmount" column="order_amount" jdbcType="DECIMAL"/>
+            <result property="couponId" column="coupon_id" jdbcType="BIGINT"/>
+            <result property="couponPaid" column="coupon_paid" jdbcType="DECIMAL"/>
+            <result property="moneyPaid" column="money_paid" jdbcType="DECIMAL"/>
+            <result property="payAmount" column="pay_amount" jdbcType="DECIMAL"/>
+            <result property="addTime" column="add_time" jdbcType="TIMESTAMP"/>
+            <result property="confirmTime" column="confirm_time" jdbcType="TIMESTAMP"/>
+            <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_id,user_id,order_status,
+        pay_status,shipping_status,address,
+        consignee,goods_id,goods_number,
+        goods_price,goods_amount,shipping_fee,
+        order_amount,coupon_id,coupon_paid,
+        money_paid,pay_amount,add_time,
+        confirm_time,pay_time
+    </sql>
+</mapper>

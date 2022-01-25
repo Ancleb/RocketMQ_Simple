@@ -1,0 +1,20 @@
+# 项目结构：
+- shop-parent:父工程
+- shop-order-web:订单服务
+- shop-order-service:订单服务
+- shop-pay-web:支付服务
+- shop-pay-service:支付服务
+- shop-coupon-service:优惠券服务
+- shop-goods-service:商品服务
+- shop-user-service:用户服务
+- shop-pojo:实体类
+- shop-dao:持久层
+
+# 公共类
+- ID生成器
+  - IDWorker：Twitter雪花算法（MybatisPlus集成了）
+- 常量类
+  - ShopCode：系统状态类
+- 响应实体
+  - R<?>封装响应信息
+- RocketMQ：公共组件

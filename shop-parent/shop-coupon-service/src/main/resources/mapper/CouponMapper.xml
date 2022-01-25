@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyl.coupon.mapper.CouponMapper">
+
+    <resultMap id="BaseResultMap" type="com.yyl.pojo.Coupon">
+            <id property="couponId" column="coupon_id" jdbcType="BIGINT"/>
+            <result property="couponPrice" column="coupon_price" jdbcType="DECIMAL"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+            <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+            <result property="isUsed" column="is_used" jdbcType="INTEGER"/>
+            <result property="usedTime" column="used_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        coupon_id,coupon_price,user_id,
+        order_id,is_used,used_time
+    </sql>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyl.pay.mapper.PayMapper">
+
+    <resultMap id="BaseResultMap" type="com.yyl.pojo.Pay">
+            <id property="payId" column="pay_id" jdbcType="BIGINT"/>
+            <result property="orderId" column="order_id" jdbcType="BIGINT"/>
+            <result property="payAmount" column="pay_amount" jdbcType="DECIMAL"/>
+            <result property="isPaid" column="is_paid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pay_id,order_id,pay_amount,
+        is_paid
+    </sql>
+</mapper>

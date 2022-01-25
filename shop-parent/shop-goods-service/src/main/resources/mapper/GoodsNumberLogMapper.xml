@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yyl.goods.mapper.GoodsNumberLogMapper">
+
+    <resultMap id="BaseResultMap" type="com.yyl.pojo.GoodsNumberLog">
+            <id property="goodsId" column="goods_id" jdbcType="BIGINT"/>
+            <id property="orderId" column="order_id" jdbcType="BIGINT"/>
+            <result property="goodsNumber" column="goods_number" jdbcType="INTEGER"/>
+            <result property="logTime" column="log_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        goods_id,order_id,goods_number,
+        log_time
+    </sql>
+</mapper>
