@@ -9,8 +9,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class CastException{
-    public static void cast(ShopCode shopCode) {
+    public static BizException cast(ShopCode shopCode) {
         log.error(shopCode.toString());
-        throw new BizException(shopCode.toString());
+        return new BizException(shopCode.toString());
     }
 }

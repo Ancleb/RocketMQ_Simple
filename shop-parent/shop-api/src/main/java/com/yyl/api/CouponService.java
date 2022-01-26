@@ -1,4 +1,4 @@
-package generator.service;
+package com.yyl.api;
 
 import com.yyl.pojo.Coupon;
 import com.baomidou.mybatisplus.extension.service.IService;

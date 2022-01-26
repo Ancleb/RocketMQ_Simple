@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 
  * @TableName trade_order
@@ -18,8 +20,9 @@ import lombok.Data;
 public class Order implements Serializable {
     /**
      * 订单ID
+     * ASSIGN_ID:雪花算法
      */
-    @TableId
+    @TableId(type = IdType.ASSIGN_ID)
     private Long orderId;
 
     /**
@@ -55,6 +58,7 @@ public class Order implements Serializable {
     /**
      * 商品ID
      */
+    @NotNull(message = "商品ID不存在")
     private Long goodsId;
 
     /**

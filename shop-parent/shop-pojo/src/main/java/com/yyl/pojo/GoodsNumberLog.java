@@ -6,7 +6,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * 
@@ -14,6 +19,8 @@ import lombok.Data;
  */
 @TableName(value ="trade_goods_number_log")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GoodsNumberLog implements Serializable {
     /**
      * 商品ID
